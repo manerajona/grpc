@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"net"
 
-	"github.com/manerajona/grpc/02-server/echo"
-	"google.golang.org/grpc"
+	echo "github.com/manerajona/grpc/02-server/echo"
+	grpc "google.golang.org/grpc"
 )
 
 type EchoServer struct{}
@@ -18,19 +18,15 @@ func (e *EchoServer) Echo(ctx context.Context, req *echo.EchoRequest) (*echo.Ech
 }
 
 func main() {
-	lst, err := net.Listen("tcp", ":8080")
-	if err != nil {
-		panic(err)
-	}
+	lst, _ := net.Listen("tcp", ":8080")
 
 	s := grpc.NewServer()
-
 	srv := &EchoServer{}
 	echo.RegisterEchoServerServer(s, srv)
 
-	fmt.Println("Now serving at port 8080")
-	err = s.Serve(lst)
-	if err != nil {
+	fmt.Println("Serving at port 8080")
+
+	if err := s.Serve(lst); err != nil {
 		panic(err)
 	}
 }

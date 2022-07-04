@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package dummy;
+
+option go_package = "github.com/manerajona/grpc/dummy";
+
+message Foo {
+    uint32 id = 1;
+}
+
+service FooService {
+
+}
